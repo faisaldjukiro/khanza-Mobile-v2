@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.RSAS" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/blue_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:colorBackground">@color/black</item>
+        <item name="colorOnSurface">@color/white</item>
+    </style>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:orientation="vertical"
+    android:background="@drawable/menu_item_bg"
+    android:gravity="center"
+    android:padding="16dp"
+    android:elevation="4dp"
+    android:layout_margin="4dp">
+
+    <ImageView
+        android:id="@+id/iconMenu"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_placeholder"
+        app:tint="#ffffff" />
+
+    <TextView
+        android:id="@+id/textMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Judul Menu"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        android:paddingTop="8dp"
+        android:gravity="center" />
+</LinearLayout>
+

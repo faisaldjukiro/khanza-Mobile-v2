@@ -20,6 +20,7 @@ import com.faisal.rsas.adapter.PasienAdapter;
 import com.faisal.rsas.api.ApiClient;
 import com.faisal.rsas.api.ApiService;
 import com.faisal.rsas.model.Pasien;
+import com.faisal.rsas.response.PasienResponse;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
-    private String token;
+    private String token,nama;
     private RecyclerView recyclerView;
     private PasienAdapter pasienAdapter;
     private EditText searchEditText;
@@ -45,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences("user_session", MODE_PRIVATE);
         token = preferences.getString("token", null);
-
+        nama = preferences.getString("nama", "User");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(nama);
+        }
         if (token == null) {
             Toast.makeText(this, "Silakan login dulu", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -69,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
                     fetchPasienData();
                 }
             }
-
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Gagal memverifikasi token: " + t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (response.isSuccessful() && response.body() != null) {
                     List<Pasien> pasienList = response.body().getData();
-                    pasienAdapter = new PasienAdapter(pasienList);
+                    pasienAdapter = new PasienAdapter(MainActivity.this, pasienList);
                     recyclerView.setAdapter(pasienAdapter);
 
                     searchEditText.addTextChangedListener(new TextWatcher() {
@@ -152,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.menu_logout) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.remove("token");
+            editor.remove("kd_peg");
+            editor.remove("nama");
             editor.apply();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();

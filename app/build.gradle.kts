@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.faisal.rsas"
-        minSdk = 22
+        minSdk = 21
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -46,5 +46,7 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.photoview)
     implementation(libs.swiperefreshlayout)
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.compiler)
 
 }

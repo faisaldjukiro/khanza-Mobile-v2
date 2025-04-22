@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.faisal.rsas.api.ApiClient;
 import com.faisal.rsas.api.ApiService;
+import com.faisal.rsas.response.LoginResponse;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -81,21 +82,23 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
                     String token = response.body().getToken();
+                    String kdPeg = response.body().getData().getUser().getUsername();
+                    String nama  = response.body().getData().getUser().getNama();
 
                     SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("token", token);
+                    editor.putString("kd_peg", kdPeg);
+                    editor.putString("nama", nama);
                     editor.apply();
 
                     Toast.makeText(LoginActivity.this, "Login Berhasil!", Toast.LENGTH_SHORT).show();
-
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
-
                 } else {
-                    Toast.makeText(LoginActivity.this, "Login gagal! Cek username/password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login gagal! Cek kode pegawai/password", Toast.LENGTH_SHORT).show();
                 }
             }
 

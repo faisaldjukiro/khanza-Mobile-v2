@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginBottom="12dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardElevation="6dp"
+    app:cardCornerRadius="12dp"
+    android:backgroundTint="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_pdf"
+            android:layout_marginEnd="16dp"
+            app:tint="#3F51B5" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvNama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BERKAS DIGITAL"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvNoRawat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2024/10/11/000021"
+                android:textSize="14sp"
+                android:textColor="#666666" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,4 +1,4 @@
-package com.faisal.rsas;
+package com.faisal.rsas.response;
 
 import com.faisal.rsas.model.Pasien;
 

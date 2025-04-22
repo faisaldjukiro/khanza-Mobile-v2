@@ -1,5 +1,7 @@
 package com.faisal.rsas.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,8 +9,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.faisal.rsas.MenuActivity;
 import com.faisal.rsas.R;
 import com.faisal.rsas.model.Pasien;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +20,10 @@ import java.util.List;
 public class PasienAdapter extends RecyclerView.Adapter<PasienAdapter.ViewHolder> {
     private List<Pasien> pasienList;
     private List<Pasien> originalList;
+    private Context context;
 
-    public PasienAdapter(List<Pasien> pasienList) {
+    public PasienAdapter(Context context, List<Pasien> pasienList) {
+        this.context = context;
         this.pasienList = new ArrayList<>(pasienList);
         this.originalList = new ArrayList<>(pasienList);
     }
@@ -37,6 +43,12 @@ public class PasienAdapter extends RecyclerView.Adapter<PasienAdapter.ViewHolder
         holder.tvUmur.setText("Umur        : " + pasien.getUmur() + " Tahun");
         holder.tvNocm.setText(pasien.getNocm());
         holder.tvNorawat.setText("No Rawat : " + pasien.getNo_rawat());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, MenuActivity.class);
+            intent.putExtra("pasien", new Gson().toJson(pasien));
+            context.startActivity(intent);
+        });
     }
 
     @Override

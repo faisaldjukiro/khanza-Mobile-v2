@@ -25,6 +25,7 @@
     </style>
 
     <style name="Theme.RSAS.ActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Warna, tema, dsb tetap -->
         <item name="colorPrimary">@color/blue_primary</item>
         <item name="colorPrimaryVariant">@color/blue_dark</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -38,7 +39,19 @@
         <item name="colorOnSurface">@color/dark_text</item>
 
         <item name="android:statusBarColor">@color/blue_dark</item>
+
+        <!-- Tambahkan ini -->
+        <item name="actionBarStyle">@style/MyCustomActionBar</item>
     </style>
+
+    <style name="MyCustomActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="titleTextStyle">@style/MyCustomActionBarTitleText</item>
+    </style>
+
+    <style name="MyCustomActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">18sp</item> <!-- Ini yang mengatur ukuran -->
+    </style>
+
 </resources>
 
 

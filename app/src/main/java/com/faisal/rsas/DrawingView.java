@@ -17,7 +17,6 @@ public class DrawingView extends View {
     private Canvas drawCanvas;
     private Paint paint;
     private Path path;
-
     private boolean isDrawMode = false;
     private Matrix inverseMatrix = new Matrix();
 
@@ -31,7 +30,11 @@ public class DrawingView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(4f);
+        paint.setStrokeWidth(2f);
+    }
+
+    public void setColor(String color) {
+        paint.setColor(Color.parseColor(color));
     }
 
     public void init(Bitmap targetBitmap) {

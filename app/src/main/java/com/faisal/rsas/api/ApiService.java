@@ -35,4 +35,9 @@ public interface ApiService {
             @Header("Authorization") String authToken,
             @Body Map<String, String> noRawatBody
     );
+    @POST("api/tambah-berkas")
+    Call<ResponseBody> tambahBerkas(
+            @Header("Authorization") String authToken,
+            @Body Map<String, String> noRawatBody
+    );
 }

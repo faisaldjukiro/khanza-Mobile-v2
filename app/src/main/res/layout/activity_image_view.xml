@@ -3,23 +3,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- PhotoView untuk gambar -->
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/photoView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitCenter" />
 
+    <!-- DrawingView untuk coret-coret -->
     <com.faisal.rsas.DrawingView
         android:id="@+id/drawingView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent" />
 
-    <Button
-        android:id="@+id/toggleModeButton"
-        android:layout_width="wrap_content"
+    <!-- Layout tombol-tombol di bawah, horizontal -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mode: Coret2"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="16dp"/>
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="16dp"
+        android:layout_gravity="bottom">
+
+        <!-- Tombol pilih warna -->
+        <Button
+            android:id="@+id/colorPickerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pilih Warna"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Tombol mode coret/zoom -->
+        <Button
+            android:id="@+id/toggleModeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mode: Coret2"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Tombol simpan gambar -->
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Simpan" />
+    </LinearLayout>
+
 </FrameLayout>

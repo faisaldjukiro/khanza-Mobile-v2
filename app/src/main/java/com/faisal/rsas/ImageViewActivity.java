@@ -9,12 +9,16 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.chrisbanes.photoview.PhotoView;
+import com.skydoves.colorpickerview.ColorEnvelope;
+import com.skydoves.colorpickerview.ColorPickerDialog;
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
 public class ImageViewActivity extends AppCompatActivity {
 
     private PhotoView photoView;
     private DrawingView drawingView;
     private Button toggleModeButton;
+    private Button colorPickerButton;
 
     private boolean isDrawMode = false;
     private final Matrix currentMatrix = new Matrix();
@@ -27,6 +31,8 @@ public class ImageViewActivity extends AppCompatActivity {
         photoView = findViewById(R.id.photoView);
         drawingView = findViewById(R.id.drawingView);
         toggleModeButton = findViewById(R.id.toggleModeButton);
+        colorPickerButton = findViewById(R.id.colorPickerButton);
+
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.grafikicu)
                 .copy(Bitmap.Config.ARGB_8888, true);
         photoView.setImageBitmap(bitmap);
@@ -48,8 +54,27 @@ public class ImageViewActivity extends AppCompatActivity {
             }
             toggleModeButton.setText(isDrawMode ? "Mode: Zoom" : "Mode: Pen");
         });
+
         photoView.setOnMatrixChangeListener(rect -> {
             drawingView.setImageMatrix(photoView.getImageMatrix());
         });
+
+        colorPickerButton.setOnClickListener(v -> openColorPickerDialog());
+    }
+
+    private void openColorPickerDialog() {
+        new ColorPickerDialog.Builder(this)
+                .setTitle("Pilih Warna")
+                .setPreferenceName("ColorPicker")
+                .setPositiveButton("Pilih", new ColorEnvelopeListener() {
+                    @Override
+                    public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
+                        drawingView.setColor("#" + envelope.getHexCode());
+                    }
+                })
+                .setNegativeButton("Batal", (dialogInterface, i) -> dialogInterface.dismiss())
+                .attachAlphaSlideBar(true) // geser transparansi
+                .attachBrightnessSlideBar(true) // geser kecerahan
+                .show();
     }
 }

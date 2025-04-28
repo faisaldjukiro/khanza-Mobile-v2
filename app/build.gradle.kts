@@ -48,5 +48,6 @@ dependencies {
     implementation(libs.swiperefreshlayout)
     implementation(libs.glide)
     annotationProcessor(libs.glide.compiler)
+    implementation(libs.colorpickerview)
 
 }

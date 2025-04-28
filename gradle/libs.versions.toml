@@ -9,6 +9,7 @@ activity = "1.8.0"
 constraintlayout = "2.2.1"
 swiperefreshlayout = "1.1.0"
 glide = "4.12.0"
+colorpickerview = "2.2.4"
 
 
 [libraries]
@@ -26,6 +27,7 @@ photoview = { module = "com.github.chrisbanes:PhotoView", version = "2.3.0" }
 swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+colorpickerview = { group = "com.github.skydoves", name = "colorpickerview", version.ref = "colorpickerview" }
 
 
 [plugins]

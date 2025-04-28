@@ -49,5 +49,6 @@ dependencies {
     implementation(libs.glide)
     annotationProcessor(libs.glide.compiler)
     implementation(libs.colorpickerview)
+    implementation(libs.itext)
 
 }

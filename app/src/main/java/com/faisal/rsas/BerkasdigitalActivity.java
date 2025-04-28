@@ -42,6 +42,7 @@ public class BerkasdigitalActivity extends AppCompatActivity {
 
     private String token;
     private String noRawat;
+    private String pasienJson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class BerkasdigitalActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences("user_session", MODE_PRIVATE);
         token = preferences.getString("token", null);
-        String pasienJson = getIntent().getStringExtra("pasien");
+        pasienJson = getIntent().getStringExtra("pasien");
         Pasien pasien = new Gson().fromJson(pasienJson, Pasien.class);
         if (pasien != null) {
             noRawat = pasien.getNo_rawat();
@@ -71,6 +72,8 @@ public class BerkasdigitalActivity extends AppCompatActivity {
 
         fabTambahData.setOnClickListener(v -> {
             Intent intent = new Intent(BerkasdigitalActivity.this, ImageViewActivity.class);
+            intent.putExtra("token", token);
+            intent.putExtra("pasien", pasienJson);
             startActivity(intent);
         });
     }

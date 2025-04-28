@@ -82,4 +82,7 @@ public class DrawingView extends View {
         invalidate();
         return true;
     }
+    public Bitmap getBitmap() {
+        return baseBitmap;
+    }
 }

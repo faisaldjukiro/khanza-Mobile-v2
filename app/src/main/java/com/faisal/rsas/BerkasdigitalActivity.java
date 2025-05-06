@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,10 +72,20 @@ public class BerkasdigitalActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(this::loadBerkas);
 
         fabTambahData.setOnClickListener(v -> {
-            Intent intent = new Intent(BerkasdigitalActivity.this, ImageViewActivity.class);
-            intent.putExtra("token", token);
-            intent.putExtra("pasien", pasienJson);
-            startActivity(intent);
+            AlertDialog.Builder builder = new AlertDialog.Builder(BerkasdigitalActivity.this);
+            builder.setTitle("Pilih Aksi")
+                    .setItems(new String[]{"Tulis Berkas Digital", "Upload Berkas Digital"}, (dialog, which) -> {
+                        Intent intent;
+                        if (which == 0) {
+                            intent = new Intent(BerkasdigitalActivity.this, ImageViewActivity.class);
+                        } else {
+                            intent = new Intent(BerkasdigitalActivity.this, UploadBerkasActivity.class);
+                        }
+                        intent.putExtra("token", token);
+                        intent.putExtra("pasien", pasienJson);
+                        startActivity(intent);
+                    })
+                    .show();
         });
     }
 
@@ -84,7 +95,6 @@ public class BerkasdigitalActivity extends AppCompatActivity {
 
         Map<String, String> body = new HashMap<>();
         body.put("no_rawat", noRawat);
-
         Call<BerkasResponse> call = apiService.getBerkasList("Bearer " + token, body);
 
         call.enqueue(new Callback<BerkasResponse>() {

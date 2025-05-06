@@ -104,7 +104,13 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                if (t.getMessage() != null && (t.getMessage().contains("Failed to connect") ||
+                        t.getMessage().contains("timeout") ||
+                        t.getMessage().contains("Unable to resolve host"))) {
+                    Toast.makeText(LoginActivity.this, "Server tidak dapat dihubungi. Coba lagi nanti.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Terjadi kesalahan: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

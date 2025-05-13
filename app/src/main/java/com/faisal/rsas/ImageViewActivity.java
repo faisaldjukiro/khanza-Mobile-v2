@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,13 +45,8 @@ public class ImageViewActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private PhotoView photoView;
     private DrawingView drawingView;
-    private Button toggleModeButton;
-    private Button colorPickerButton;
-    private Button saveButton;
-    private String selectedCategory;
-    private String token;
-    private String noRawat;
-    private String pasienJson;
+    private Button toggleModeButton,saveButton,colorPickerButton,saveDraftButton;
+    private String selectedCategory,token,pasienJson,noRawat;
     private boolean isDrawMode = false;
     private final Matrix currentMatrix = new Matrix();
 
@@ -82,6 +80,32 @@ public class ImageViewActivity extends AppCompatActivity {
         toggleModeButton = findViewById(R.id.toggleModeButton);
         colorPickerButton = findViewById(R.id.colorPickerButton);
         saveButton = findViewById(R.id.saveButton);
+
+        Button saveDraftButton = findViewById(R.id.saveDraftButton);
+        //simapn draft
+        saveDraftButton.setOnClickListener(v -> {
+            DrawingView drawingView = findViewById(R.id.drawingView);
+            PhotoView photoView = findViewById(R.id.photoView);
+
+            Bitmap combinedBitmap = combineBitmapsFromViews(photoView, drawingView);
+
+            try {
+                File file = saveBitmapToFile(combinedBitmap);
+
+
+                if (pasien != null && pasien.getNo_rawat() != null && !pasien.getNo_rawat().isEmpty()) {
+                    String noRawat = pasien.getNo_rawat();
+                    uploadDraft(file, noRawat);
+                } else {
+                    Toast.makeText(this, "No. Rawat tidak ditemukan", Toast.LENGTH_SHORT).show();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Gagal menyimpan gambar", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+        //end simpan draft
 
         toggleModeButton.setText("Mode: Zoom");
         drawingView.setDrawMode(false);
@@ -190,7 +214,7 @@ public class ImageViewActivity extends AppCompatActivity {
             document.open();
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] imageBytes = stream.toByteArray();
 
             com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(imageBytes);
@@ -205,7 +229,6 @@ public class ImageViewActivity extends AppCompatActivity {
             Toast.makeText(this, "Gagal membuat PDF: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
-
 
     private void uploadPdfToServer(File pdfFile, String kategori) {
         RequestBody requestFile = RequestBody.create(MediaType.parse("application/pdf"), pdfFile);
@@ -228,14 +251,64 @@ public class ImageViewActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(ImageViewActivity.this, "Gagal mengunggah file", Toast.LENGTH_SHORT).show();
                 }
-
             }
-
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(ImageViewActivity.this, "Terjadi kesalahan: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+    private Bitmap combineBitmapsFromViews(View imageView, View overlayView) {
+        Bitmap bitmap = Bitmap.createBitmap(imageView.getWidth(), imageView.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        imageView.draw(canvas);
+        overlayView.draw(canvas);
+        return bitmap;
+    }
+    private File saveBitmapToFile(Bitmap bitmap) throws IOException {
+        File file = new File(getCacheDir(), "draft_" + System.currentTimeMillis() + ".jpg");
+        FileOutputStream fos = new FileOutputStream(file);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+        fos.flush();
+        fos.close();
+        return file;
+    }
+
+    //simpan draft
+    private void uploadDraft(File file, String noRawat) {
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+        RequestBody noRawatBody = RequestBody.create(MediaType.parse("text/plain"), noRawat);
+
+        Call<ResponseBody> call = apiService.uploadDraft(
+                "Bearer " + token,
+                body,
+                noRawatBody
+        );
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(ImageViewActivity.this, "Draft berhasil diunggah", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ImageViewActivity.this, BerkasdigitalActivity.class);
+                    intent.putExtra("token", token);
+                    intent.putExtra("pasien", pasienJson);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(ImageViewActivity.this, "Gagal mengunggah draft", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(ImageViewActivity.this, "Kesalahan jaringan: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    //end simpan draft
+
 }
 

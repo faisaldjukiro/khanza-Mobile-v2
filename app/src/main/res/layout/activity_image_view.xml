@@ -41,20 +41,29 @@
             android:id="@+id/colorPickerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pilih Warna"
+            android:text="Warna"
             android:layout_marginEnd="8dp" />
 
         <Button
             android:id="@+id/toggleModeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mode: Coret2"
+            android:text="Mode: Coret"
             android:layout_marginEnd="8dp" />
-
+        <Button
+            android:id="@+id/saveDraftButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/teal_200"
+            android:textColor="@color/black"
+            android:text="Shift"
+            android:layout_marginEnd="8dp" />
         <Button
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
+            android:backgroundTint="@color/green_dark"
             android:layout_height="wrap_content"
-            android:text="Simpan" />
+            android:text="Simpan"
+            android:layout_marginEnd="8dp" />
     </LinearLayout>
 </FrameLayout>

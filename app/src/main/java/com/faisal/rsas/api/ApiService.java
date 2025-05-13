@@ -47,4 +47,25 @@ public interface ApiService {
             @Part("no_rawat") RequestBody noRawat,
             @Part("kode") RequestBody kode
     );
+    @Multipart
+    @POST("api/upload-draft")
+    Call<ResponseBody> uploadDraft(
+            @Header("Authorization") String authToken,
+            @Part MultipartBody.Part file,
+            @Part("no_rawat") RequestBody noRawat
+    );
+    @FormUrlEncoded
+    @POST("api/get-draft")
+    Call<ResponseBody> getDraft(
+            @Header("Authorization") String authToken,
+            @Field("no_rawat") String noRawat
+    );
+    @Multipart
+    @POST("api/tambah-berkas")
+    Call<ResponseBody> uploadBerkas(
+            @Header("Authorization") String authToken,
+            @Part MultipartBody.Part file,
+            @Part("no_rawat") RequestBody noRawat,
+            @Part("kode") RequestBody kode
+    );
 }

@@ -93,7 +93,7 @@ public class DrawingView extends View {
             case MotionEvent.ACTION_UP:
                 long duration = event.getEventTime() - downTime;
 
-                currentStroke.add(new PointF(x, y)); // tambahkan titik akhir
+                currentStroke.add(new PointF(x, y));
 
                 if (isCircle(currentStroke)) {
                     PointF center = getCenter(currentStroke);

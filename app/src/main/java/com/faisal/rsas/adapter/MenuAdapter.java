@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.faisal.rsas.AmbulanceActivity;
 import com.faisal.rsas.BerkasdigitalActivity;
 import com.faisal.rsas.R;
 import com.faisal.rsas.item.MenuItem;
@@ -61,9 +62,17 @@ public class MenuAdapter extends BaseAdapter {
             textMenu.setText(menuItem.getMenuTitle());
         }
         convertView.setOnClickListener(v -> {
-            if (menuItem.getMenuTitle().equals("Berkas Digital")) {
-                Intent intent = new Intent(context, BerkasdigitalActivity.class);
+            String menuTitle = menuItem.getMenuTitle();
 
+            if (menuTitle.equals("Berkas Digital")) {
+                Intent intent = new Intent(context, BerkasdigitalActivity.class);
+                if (pasien != null) {
+                    String pasienJson = new Gson().toJson(pasien);
+                    intent.putExtra("pasien", pasienJson);
+                }
+                context.startActivity(intent);
+            } else if (menuTitle.equals("Ambulance")) {
+                Intent intent = new Intent(context, AmbulanceActivity.class);
                 if (pasien != null) {
                     String pasienJson = new Gson().toJson(pasien);
                     intent.putExtra("pasien", pasienJson);
@@ -71,6 +80,7 @@ public class MenuAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
+
         return convertView;
     }
 }

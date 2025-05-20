@@ -1,5 +1,6 @@
 package com.faisal.rsas.api;
 
+import com.faisal.rsas.model.DirectionsResponse;
 import com.faisal.rsas.response.BerkasResponse;
 import com.faisal.rsas.response.LoginResponse;
 import com.faisal.rsas.response.PasienResponse;
@@ -18,6 +19,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 public interface ApiService {
 
@@ -67,5 +69,11 @@ public interface ApiService {
             @Part MultipartBody.Part file,
             @Part("no_rawat") RequestBody noRawat,
             @Part("kode") RequestBody kode
+    );
+    @GET("directions/json")
+    Call<DirectionsResponse> getDirections(
+            @Query("origin") String origin,
+            @Query("destination") String destination,
+            @Query("key") String apiKey
     );
 }

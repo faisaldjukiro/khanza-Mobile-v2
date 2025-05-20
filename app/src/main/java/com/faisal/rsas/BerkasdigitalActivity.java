@@ -2,9 +2,14 @@ package com.faisal.rsas;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -49,14 +54,23 @@ public class BerkasdigitalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_berkasdigital);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
         preferences = getSharedPreferences("user_session", MODE_PRIVATE);
         token = preferences.getString("token", null);
         pasienJson = getIntent().getStringExtra("pasien");
         Pasien pasien = new Gson().fromJson(pasienJson, Pasien.class);
+        TextView tvNamaPasien = findViewById(R.id.tvNamaPasien);
         if (pasien != null) {
+            if (tvNamaPasien != null) {
+                tvNamaPasien.setText(pasien.getNm_pasien());
+            }
             noRawat = pasien.getNo_rawat();
         }
+
 
         recyclerView = findViewById(R.id.RecyclerViewBerkasDigital);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

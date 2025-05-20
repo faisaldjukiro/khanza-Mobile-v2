@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +20,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RSAS"
         tools:targetApi="31">
+        <activity
+            android:name=".BerandaActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAsTH1fSpELYpFd_P9tg74JS5JXaYwGlY4" />
+
+        <activity
+            android:name=".AmbulanceActivity"
+            android:exported="false" />
         <activity
             android:name=".UploadBerkasActivity"
             android:exported="false" />

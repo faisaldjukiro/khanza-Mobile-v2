@@ -214,7 +214,7 @@ public class ImageViewActivity extends AppCompatActivity {
             document.open();
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 95, stream);
             byte[] imageBytes = stream.toByteArray();
 
             com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(imageBytes);

@@ -4,16 +4,19 @@ package com.faisal.rsas;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.provider.OpenableColumns;
 
 import com.faisal.rsas.api.ApiClient;
 import com.faisal.rsas.api.ApiService;
@@ -24,6 +27,9 @@ import com.google.gson.Gson;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +49,6 @@ public class UploadBerkasActivity extends AppCompatActivity {
     private String token;
     private String noRawat,pasienJson;
     private Uri selectedFileUri;
-
     private TextView txtNamaPasien, txtNamaFile;
     private Spinner spinnerBerkas;
 
@@ -53,7 +58,11 @@ public class UploadBerkasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_berkas);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
         preferences = getSharedPreferences("user_session", MODE_PRIVATE);
         token = preferences.getString("token", null);
         pasienJson = getIntent().getStringExtra("pasien");
@@ -105,10 +114,19 @@ public class UploadBerkasActivity extends AppCompatActivity {
 
     private void uploadFile() {
         try {
-            File file = FileUtils.copyToFile(this, selectedFileUri);
+            String fileName = getFileName(selectedFileUri);
+            File file = new File(getCacheDir(), fileName);
+            try (InputStream inputStream = getContentResolver().openInputStream(selectedFileUri);
+                 OutputStream outputStream = new FileOutputStream(file)) {
+
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+            }
             RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(selectedFileUri)), file);
             MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-
             RequestBody noRawatBody = RequestBody.create(MultipartBody.FORM, noRawat);
             JenisBerkas selectedJenis = (JenisBerkas) spinnerBerkas.getSelectedItem();
             RequestBody kodeBody = RequestBody.create(MultipartBody.FORM, selectedJenis.getKode());
@@ -142,6 +160,7 @@ public class UploadBerkasActivity extends AppCompatActivity {
             Toast.makeText(this, "Gagal memproses file", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
     private List<JenisBerkas> getJenisBerkasList() {
@@ -191,4 +210,5 @@ public class UploadBerkasActivity extends AppCompatActivity {
         }
         return result;
     }
+
 }

@@ -12,6 +12,10 @@ glide = "4.12.0"
 colorpickerview = "2.2.4"
 itext = "7.1.9"
 itextt = "5.5.13.2"
+google-places = "3.2.0"
+gridlayout = "1.0.0"
+#barteksc = "3.1.0"
+
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -32,7 +36,11 @@ colorpickerview = { group = "com.github.skydoves", name = "colorpickerview", ver
 itext = { module = "com.itextpdf:itext7-core", version.ref = "itext" }
 itextpdf = { module = "com.itextpdf:itextpdf", version.ref = "itextt" }
 
-
+google-maps = { group = "com.google.android.gms", name = "play-services-maps", version = "18.1.0" }
+maps-utils = { group = "com.google.maps.android", name = "android-maps-utils", version = "2.3.0" }
+google-places = { module = "com.google.android.libraries.places:places", version.ref = "google-places" }
+gridlayout = { group = "androidx.gridlayout", name = "gridlayout", version.ref = "gridlayout" }
+#barteksc = { module = "com.github.barteksc:android-pdf-viewer", version.ref = "barteksc" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -15,20 +15,16 @@ import java.io.OutputStream;
 
 public class FileUtils {
 
-    /**
-     * Menyediakan path file berdasarkan Uri
-     */
+
     @Nullable
     public static String getPath(Context context, Uri uri) {
         if (uri == null) {
             return null;
         }
 
-        // Jika URI adalah Content URI, maka ambil pathnya
         if ("content".equalsIgnoreCase(uri.getScheme())) {
             return getDataColumn(context, uri, null, null);
         }
-        // Jika URI adalah File URI langsung return path
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
@@ -36,9 +32,6 @@ public class FileUtils {
         return null;
     }
 
-    /**
-     * Mengambil data dari Content URI
-     */
     private static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
         Cursor cursor = null;
         String column = "_data";
@@ -59,9 +52,7 @@ public class FileUtils {
         return null;
     }
 
-    /**
-     * Menyalin file dari URI ke file baru di penyimpanan
-     */
+
     public static File copyToFile(Context context, Uri uri) throws IOException {
         InputStream inputStream = context.getContentResolver().openInputStream(uri);
         File tempFile = File.createTempFile("upload", ".tmp", context.getCacheDir());

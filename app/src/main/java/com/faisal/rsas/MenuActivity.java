@@ -44,6 +44,7 @@ public class MenuActivity extends AppCompatActivity {
         menuItems.add(new MenuItem(R.drawable.ic_ttv, "Monitoring TTV"));
         menuItems.add(new MenuItem(R.drawable.ic_note, "Catatan Keperawatan"));
         menuItems.add(new MenuItem(R.drawable.ic_note, "Catatan Gizi"));
+        menuItems.add(new MenuItem(R.drawable.ic_car, "Ambulance"));
 
         MenuAdapter adapter = new MenuAdapter(this, menuItems, pasien);
         gridMenu.setAdapter(adapter);

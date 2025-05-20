@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="150dp"
-    android:layout_height="150dp"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
     android:orientation="vertical"
     android:background="@drawable/menu_item_bg"
     android:gravity="center"
-    android:padding="16dp"
+    android:padding="8dp"
     android:foreground="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:elevation="6dp"
-    android:layout_margin="4dp">
+    android:elevation="4dp"
+    android:layout_margin="2dp">
 
     <ImageView
         android:id="@+id/iconMenu"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:src="@drawable/ic_placeholder"
         app:tint="#ffffff" />
 
@@ -26,8 +26,7 @@
         android:layout_height="wrap_content"
         android:text="Judul Menu"
         android:textColor="#ffffff"
-        android:textSize="14sp"
-        android:paddingTop="8dp"
+        android:textSize="12sp"
+        android:paddingTop="4dp"
         android:gravity="center" />
 </LinearLayout>
-

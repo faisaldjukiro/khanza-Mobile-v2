@@ -1,46 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.RSAS" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color -->
         <item name="colorPrimary">@color/blue_primary</item>
-        <item name="colorPrimaryVariant">@color/blue_dark</item>
+        <item name="colorPrimaryVariant">#3A49A8</item>
         <item name="colorOnPrimary">@color/white</item>
-
-        <!-- Secondary brand color -->
         <item name="colorSecondary">@color/green_primary</item>
         <item name="colorSecondaryVariant">@color/green_dark</item>
         <item name="colorOnSecondary">@color/white</item>
-
-        <!-- Background & surface colors -->
         <item name="android:colorBackground">@color/white</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/dark_text</item>
-        <item name="android:statusBarColor">@color/blue_dark</item>
-
-        <!-- Text colors -->
+        <item name="android:statusBarColor">#3A49A8</item>
         <item name="android:textColor">@color/dark_text</item>
-
-        <!-- Button style, if needed -->
         <item name="buttonStyle">@style/Widget.MaterialComponents.Button</item>
     </style>
 
     <style name="Theme.RSAS.ActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- Warna, tema, dsb tetap -->
         <item name="colorPrimary">@color/blue_primary</item>
         <item name="colorPrimaryVariant">@color/blue_dark</item>
         <item name="colorOnPrimary">@color/white</item>
-
         <item name="colorSecondary">@color/green_primary</item>
         <item name="colorSecondaryVariant">@color/green_dark</item>
         <item name="colorOnSecondary">@color/white</item>
-
         <item name="android:colorBackground">@color/white</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/dark_text</item>
-
-        <item name="android:statusBarColor">@color/blue_dark</item>
-
-        <!-- Tambahkan ini -->
+        <item name="android:statusBarColor">@color/blue_primary</item>
         <item name="actionBarStyle">@style/MyCustomActionBar</item>
     </style>
 
@@ -49,8 +34,10 @@
     </style>
 
     <style name="MyCustomActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textSize">18sp</item> <!-- Ini yang mengatur ukuran -->
+        <item name="android:textSize">17sp</item>
     </style>
+
+
 
 </resources>
 

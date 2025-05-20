@@ -51,5 +51,13 @@ dependencies {
     implementation(libs.colorpickerview)
     implementation(libs.itext)
     implementation(libs.itextpdf)
+    implementation(libs.google.maps)
+    implementation(libs.maps.utils)
+    implementation(libs.google.places)
+    implementation(libs.gridlayout)
+//    implementation(libs.barteksc)
+
+
+
 
 }

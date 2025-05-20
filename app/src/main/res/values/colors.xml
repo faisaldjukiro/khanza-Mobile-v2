@@ -16,4 +16,8 @@
 <!--    <color name="hintColor">#A6A6A6</color>-->
     <color name="gray_500">#9E9E9E</color>
     <color name="primary">#3F51B5</color>
+
+    <color name="dark_gray">#666666</color>
+    <color name="white_alpha_50">#80FFFFFF</color>
+    <color name="light_gray">#F5F5F5</color>
 </resources>
